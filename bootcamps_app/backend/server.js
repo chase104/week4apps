@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const helmet = require('helmet'); // adds a bunch of standard security to server
 require('./config/db.js');
 const path = require('path');
+const State = require('./models/State.js');
 const PORT = 3000;
 
 const app = express();
@@ -30,10 +31,27 @@ app.use((req, res, next)=> {
 // START ROUTES //
 
 
+// CREATE BOOTCAMP
 
+
+// READ BOOTCAMPS
+
+// READ STATES ROUTE
+// frontend wants the states!
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 
+
+
+
+app.get("/states", async (req, res) => {
+    try {
+        let dbResponse = await State.find();
+        res.send(dbResponse)
+    } catch(err) {
+        res.status(400).send("error getting the states")
+    }
+});
 
 
 app.get('/*', (req, res) => {
