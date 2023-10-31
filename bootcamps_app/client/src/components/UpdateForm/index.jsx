@@ -9,8 +9,8 @@ const UpdateForm = () => {
     // let obj = {
     //     updatedAt: "312343124",
     //     _id: "12341324we",
-    //     name: "qwerasdf",
-    //     stateId: {_id: "12341324", name: "tX"},
+    //     name: "camp 11",
+    //     stateId: "{_id: "12341324", name: "tX"}",
 
     // }
 
@@ -29,15 +29,24 @@ console.log(campToEdit);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(campToEdit);
-        let campWithFixedId =  {...campToEdit, stateId: campToEdit.stateId._id}
-        console.log(campWithFixedId);
+
+        // sometimes here stateId is a "223lu123oiu21" and other times it is an object {_id, name, tax}
+        
+        // let campWithFixedId = 
+        // typeof campToEdit.stateId === "string" 
+        // ? campToEdit 
+        // :  {...campToEdit, stateId: campToEdit.stateId._id};
+
+
+
+        // console.log(campWithFixedId);
         let response = await axios({
             method: "PUT",
             url: `/server/camps/${campToEdit._id}`,
-            data: campWithFixedId // found in req.body
+            data: campToEdit // found in req.body
         })
         console.log(response);
+
         let newCamps = camps.map((camp) => {
             if (camp._id == campToEdit._id) {
                 return response.data
@@ -45,7 +54,9 @@ console.log(campToEdit);
                 return camp
             }
           })
-          setCamps(newCamps)
+          setCamps(newCamps);
+          setCampToEdit(null)
+
         // update fronted state as well!
     }
 

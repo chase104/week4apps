@@ -17,6 +17,7 @@ const CampForm = () => {
     img: ''
 });
 
+console.log(formData)
 const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({

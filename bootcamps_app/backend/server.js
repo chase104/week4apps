@@ -69,7 +69,6 @@ app.post("/camps", async (req, res) => {
         res.status(400).send("error creating camp")
     }
 });
-
 // READ !!!!
 app.get("/camps", async (req, res) => {
     try {
@@ -79,17 +78,17 @@ app.get("/camps", async (req, res) => {
         res.status(400).send("error getting camp")
     }
 });
-
 // UPDATE
 app.put("/camps/:bootcampId", async (req, res) => {
     try {
-        let dbResponse = await Bootcamp.findByIdAndUpdate(req.params.bootcampId, req.body);
+        let dbResponse = await Bootcamp.findByIdAndUpdate(req.params.bootcampId, req.body, {new: true}).populate("stateId")
+        console.log(dbResponse, req.body);
+
         res.status(200).send(dbResponse);
     } catch(err) {
         res.status(400).send("error deleting camp")
     }
 });
-
 
 // DELETE
 app.delete("/camps/:bootcampId", async (req, res) => {
