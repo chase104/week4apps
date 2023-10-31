@@ -1,0 +1,13 @@
+{
+  "name": "bootcamps_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "servers": "concurrently \"cd backend && nodemon --env-file .env server.js\" \"cd client && npm run dev\"  "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,3 +1,6 @@
+
+
+// imports 
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -5,7 +8,11 @@ const helmet = require('helmet'); // adds a bunch of standard security to server
 require('./config/db.js');
 const path = require('path');
 const State = require('./models/State.js');
+const Bootcamp = require('./models/Bootcamp.js');
 const PORT = 3000;
+//
+
+
 
 const app = express();
 // START MIDDLEWARE //
@@ -22,7 +29,7 @@ app.use((req, res, next)=> {
         req.url = req.url.replace('/server', ''); // strip /server from the path
     }
     next();
-})
+});
 
 
 
@@ -53,10 +60,33 @@ app.get("/states", async (req, res) => {
     }
 });
 
+// CREATE !!!!
+app.post("/camps", async (req, res) => {
+    try {
+        let dbResponse = await Bootcamp.create(req.body);
+        res.status(201).send(dbResponse)
+    } catch(err) {
+        res.status(400).send("error creating camp")
+    }
+});
+
+// READ !!!!
+app.get("/camps", async (req, res) => {
+    try {
+        let dbResponse = await Bootcamp.find();
+        res.status(200).send(dbResponse)
+    } catch(err) {
+        res.status(400).send("error getting camp")
+    }
+});
+
+
+
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
+
 // END ROUTES //
 
 app.listen(PORT, () => {

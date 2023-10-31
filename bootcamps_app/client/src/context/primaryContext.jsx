@@ -9,6 +9,7 @@ const PrimaryProvider = ({children}) => {
     const [camps, setCamps] = useState([]);
     const [states, setStates] = useState([]);
 
+    console.log(states);
     // return provider div
     return (
         <primaryContext.Provider value={{
