@@ -8,6 +8,7 @@ const PrimaryProvider = ({children}) => {
     // state
     const [camps, setCamps] = useState([]);
     const [states, setStates] = useState([]);
+    const [campToEdit, setCampToEdit] = useState(null);
 
     console.log(states);
     // return provider div
@@ -17,7 +18,10 @@ const PrimaryProvider = ({children}) => {
             setCamps,
 
             states, 
-            setStates
+            setStates,
+
+            campToEdit, 
+            setCampToEdit
         }}   >
             {children}
         </primaryContext.Provider>

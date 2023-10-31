@@ -5,7 +5,7 @@ const bootcampSchema = new Schema({
     name: {type: String, required: true},
     price: {type: Number, required: true},
     img: String,
-    stateId: Schema.Types.ObjectId
+    stateId: {type: Schema.Types.ObjectId, ref: "State"}
 },
 {
     timestamps: true

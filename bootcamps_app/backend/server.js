@@ -73,10 +73,31 @@ app.post("/camps", async (req, res) => {
 // READ !!!!
 app.get("/camps", async (req, res) => {
     try {
-        let dbResponse = await Bootcamp.find();
+        let dbResponse = await Bootcamp.find().populate('stateId')
         res.status(200).send(dbResponse)
     } catch(err) {
         res.status(400).send("error getting camp")
+    }
+});
+
+// UPDATE
+app.put("/camps/:bootcampId", async (req, res) => {
+    try {
+        let dbResponse = await Bootcamp.findByIdAndUpdate(req.params.bootcampId, req.body);
+        res.status(200).send(dbResponse);
+    } catch(err) {
+        res.status(400).send("error deleting camp")
+    }
+});
+
+
+// DELETE
+app.delete("/camps/:bootcampId", async (req, res) => {
+    try {
+        let dbResponse = await Bootcamp.findByIdAndDelete(req.params.bootcampId);
+        res.status(200).send(dbResponse);
+    } catch(err) {
+        res.status(400).send("error deleting camp")
     }
 });
 
